@@ -1,0 +1,19 @@
+{
+  "name": "nmsp",
+  "version": "0.1.0",
+  "description": "Create easy to extend namespaces.",
+  "author": "Ryan Fitzer",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "keywords": [
+    "ns",
+    "nsjs",
+    "namespace"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
