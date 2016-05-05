@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Create easy to extend namespaces.",
   "author": "Ryan Fitzer",
-  "main": "index.js",
+  "main": "nmsp.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
   },
