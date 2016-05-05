@@ -1,6 +1,6 @@
 {
   "name": "nmsp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create easy to extend namespaces.",
   "author": "Ryan Fitzer",
   "main": "nmsp.js",
