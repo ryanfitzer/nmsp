@@ -155,8 +155,8 @@
      */
     function nmsp( initialValue ) {
 
-        var store = Object.create( {} )
-            , extendStore = extend( store )
+        var extendStore
+            , store = Object.create( {} )
             ;
 
         if ( isObject( initialValue ) ) {
@@ -165,6 +165,8 @@
         else if ( typeof initialValue === 'string' ) {
             store = fromPath( initialValue );
         }
+
+        extendStore = extend( store );
 
         return Object.defineProperties( store, {
 
@@ -181,6 +183,9 @@
                     }
                     else {
 
+                        /*
+                            TODO Expect that dest could be an object, as well.
+                        */
                         extendStore( fromPath( dest ) );
                         extend( atPath( store )( dest ) )( src );
                     }

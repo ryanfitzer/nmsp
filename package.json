@@ -7,6 +7,10 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanfitzer/nmsp.git"
+  },
   "keywords": [
     "ns",
     "nsjs",

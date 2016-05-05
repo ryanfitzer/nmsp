@@ -81,7 +81,7 @@ it( 'nmsp should create a namespace object', function() {
 
 });
 
-it( 'providing a object to nmsp should create a namespace with the expected value', function() {
+it( 'providing an object to nmsp should create a namespace with the expected value', function() {
 
     var expected = {
         a: 1,
@@ -176,3 +176,72 @@ it( 'providing a path to test.extend should extend test at path', function() {
     assert.deepEqual( test, expected );
 
 });
+
+it( 'providing an object to nmsp and extending with an object should create a namespace with the expected value', function() {
+
+    var expected = {
+        a: 1,
+        b: {
+            c: 1
+        }
+    };
+
+    var test = nmsp({
+         a: 1
+    });
+
+    test.extend({
+        b: {
+            c: 1
+        }
+    });
+
+    assert.deepEqual( test, expected );
+
+});
+
+it( 'providing an object to nmsp and extending with a path and an object should create a namespace with the expected value', function() {
+
+    var expected = {
+        a: 1,
+        b: {
+            c: 1
+        }
+    };
+
+    var test = nmsp({
+         a: 1
+    });
+
+    test.extend( 'b', {
+        c: 1
+    });
+
+    assert.deepEqual( test, expected );
+
+});
+
+it( 'providing a path to nmsp and extending with a path and an object should create a namespace with the expected value', function() {
+
+    var pathValue = 'a.b.c';
+
+    var expected = {
+        a: {
+            b: {
+                c: {
+                    d: {}
+                }
+            }
+        }
+    };
+
+    var test = nmsp( pathValue );
+
+    test.extend( 'a.b.c.d', {} );
+
+    assert.deepEqual( test, expected );
+
+});
+
+
+
