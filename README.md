@@ -1,11 +1,5 @@
 # About #
 
-[TODO]
+Coming soon...
 
-
-
-## Helpful Links
-
-[TODO]
-
-  - https://addyosmani.com/blog/essential-js-namespacing/
+For now, usage examples can be found in `test/main.js`.

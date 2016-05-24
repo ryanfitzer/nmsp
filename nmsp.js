@@ -130,6 +130,27 @@
     };
 
     /**
+     * Return a plain Object.
+     *
+     * @example
+     *  var myNameSpace = nmsp( { some: { data: {} } } );
+     *  myNameSpace.extend( 'some.other.data', { the: 'data' } );
+     *  myNameSpace.plain()
+     *
+     * @param store {Object} The object to return as a plain object.
+     * @returns {Object}
+     */
+    function plain( store ) {
+
+        return function( src ) {
+
+             src = store || src;
+
+            return Object.assign( {}, src );
+        }
+    }
+
+    /**
      * Creates an object with methods that enable easy extension.
      *
      * @example
@@ -192,13 +213,20 @@
                 }
             },
 
-            atPath: atPath( store )
+            atPath: {
+                value: atPath( store )
+            },
+
+            plain: {
+                value: plain( store )
+            }
         });
     }
 
     exports = nmsp;
     exports.extend = extend();
     exports.atPath = atPath();
+    exports.plain = plain();
     exports.fromPath = fromPath;
 
     return exports;
