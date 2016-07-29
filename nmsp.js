@@ -1,4 +1,4 @@
-/*! nmsp 1.0 | github.com/ryanfitzer/nmsp/blob/master/LICENSE */
+/*! github.com/ryanfitzer/nmsp/blob/master/LICENSE */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
