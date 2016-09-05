@@ -30,7 +30,7 @@
     }
 
     /**
-     * Assign, recursively, the properties of a source object to
+     * Assign (recursively) the properties of a source object to
      * a destination object. If a `context` object is provided,
      * the returned function will use it as the destination to extend.
      *
@@ -58,8 +58,8 @@
 
                 if ( isObject( src[ key ] ) ) {
 
-                    dest[ key ] = dest[ key ] || {};
-
+                    dest[ key ] = isObject( dest[ key ] ) ? dest[ key ] : {};
+                    
                     extend( dest[ key ] )( src[ key ] );
 
                 }
@@ -87,7 +87,7 @@
      *
      * @param [context] {Object} The object to use as the returned function's `src` argument.
      * @param path {String} The path to search in the object.
-     * @param src {String} The object to search.
+     * @param src {Object} The object to search.
      * @returns {Function} The function accepts a `path` and `src` object as arguments and returns the value found at `path`.
      */
     function atPath( context ) {
@@ -96,16 +96,16 @@
 
             src = context || src;
 
-            return path.split( '.' ).reduce( function ( prevValue, key ) {
+            return path.split( '.' ).reduce( function ( accum, key ) {
 
-                return prevValue && prevValue[ key ];
+                return accum && accum[ key ];
 
             }, src );
         }
     };
 
     /**
-     * Creates a nested object based on the provided path.
+     * Create a nested object based on the provided path.
      *
      * @example
      *  var objFromPath = fromPath( 'one.two.three` );
@@ -118,11 +118,11 @@
 
         var accumulator = {};
 
-        path.split( '.' ).reduce( function ( prevValue, key ) {
+        var test = path.split( '.' ).reduce( function ( accum, key ) {
 
-            prevValue[ key ] = {};
+            accum[ key ] = {};
 
-            return prevValue[ key ];
+            return accum[ key ];
 
         }, accumulator );
 
@@ -130,12 +130,12 @@
     };
 
     /**
-     * Return a plain Object.
+     * Create a plain object that consists of only the enumerable own properties of a source object.
      *
      * @example
      *  var myNameSpace = nmsp( { some: { data: {} } } );
      *  myNameSpace.extend( 'some.other.data', { the: 'data' } );
-     *  myNameSpace.plain()
+     *  var plainObj = myNameSpace.plain();
      *
      * @param store {Object} The object to return as a plain object.
      * @returns {Object}
@@ -144,14 +144,21 @@
 
         return function( src ) {
 
-             src = store || src;
-
-            return Object.assign( {}, src );
+            src = store || src;
+            
+            // @support: IE9+ does not support Object.assign( {}, src );
+            return Object.keys( src ).reduce( function ( accum, key ) {
+                
+                accum[ key ] = src[ key ];
+                
+                return accum;
+                
+            }, {} );
         }
     }
 
     /**
-     * Creates an object with methods that enable easy extension.
+     * Create an object with an API that enables easy extension.
      *
      * @example
      *  var myNameSpace = nmsp();
@@ -172,7 +179,8 @@
      *  //     }
      *  // }
      *
-     * @param initialValue {Object|String} The initial object or path (ex: 'a.b.c.d' ) to assign to the namespace.
+     * @param [initialValue] {Object|String} The initial object to assign to the namespace. A path string (ex: `'a.b.c.d'` ) can be passes as the model a new abject.
+     * @returns `{Object}` An object extended with the `nmsp` API.
      */
     function nmsp( initialValue ) {
 
@@ -204,9 +212,6 @@
                     }
                     else {
 
-                        /*
-                            TODO Expect that dest could be an object, as well.
-                        */
                         extendStore( fromPath( dest ) );
                         extend( atPath( store )( dest ) )( src );
                     }
