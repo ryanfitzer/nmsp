@@ -12,6 +12,15 @@ In addition, these data sources may need to be handled before your application i
 
 
 
+## Features ##
+
+  - Static and Instance methods...
+  - UMD...
+  - Tiny...
+  - Browser and Node...
+
+
+
 ## Install ##
 
     $ npm install nmsp --save
@@ -33,29 +42,30 @@ Create and extend namespace:
     // Supports a path string or an object
     var ns = nmsp( 'a.b.c' );
     
-    // Add a top-level property
-    ns.extend( { b: 'b' } );
-    
     // Add a `d` property into the `b` member
     ns.extend( 'a.b', { d: 'd' } );
     
-    // Add a `bb` property into the `a` member
-    ns.extend( 'a.bb', { cc: 'cc' } );
+    // Add an `e` property into the `a` member
+    ns.extend( 'a.e', { f: 'f' } );
+    
+    // Add a top-level property
+    ns.extend( { g: 'g' } );
 
 Result:
-
+    
     {
       a: {
         b: {
           c: {},
-          d: 'd,
+          d: 'd',
         },
-        bb: {
-          cc: 'cc'
+        e: {
+          f: 'f'
         }
       },
-      b: 'b'
+      g: 'g'
     }
+
 
 
 ## Properties ##
