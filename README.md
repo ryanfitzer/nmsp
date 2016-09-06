@@ -1,6 +1,6 @@
 # nmsp #
 
-[![nmsp on npm](https://badge.fury.io/js/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://api.travis-ci.org/ryanfitzer/nmsp.svg?branch=master)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) [![Coverage Status](https://coveralls.io/repos/github/ryanfitzer/nmsp/badge.svg?branch=master)](https://coveralls.io/github/ryanfitzer/nmsp?branch=master)
+[![nmsp on npm](https://badge.fury.io/js/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://api.travis-ci.org/ryanfitzer/nmsp.svg?branch=master)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) [![Coverage Status](https://coveralls.io/repos/github/ryanfitzer/nmsp/badge.svg?branch=master)](https://coveralls.io/github/ryanfitzer/nmsp?branch=master) [![Code Climate](https://codeclimate.com/github/ryanfitzer/nmsp/badges/gpa.svg)](https://codeclimate.com/github/ryanfitzer/nmsp)
 
 A tiny module (479 bytes gzipped) for creating, managing and extending your namespaces in the browser (IE9+) and NodeJS (4.0.0+).
 
@@ -9,15 +9,6 @@ The most valuable use case for `nmsp` is in a browser environment where the data
 The typical solution has been to store everything in top-level object literal. The object literal approach definitely works, but it can become very fragile due to the potential for naming conflicts and changes/updates to your data during the life of your application. Managing your namespace(s) with `nmsp` significantly reduces this pain.
 
 In addition, these data sources may need to be handled before your application is even loaded (where you may have something like [Lodash](https://lodash.com) available). For example, when your application is loaded via a `<script>` tag at the end of the `<body>`, but various data sources may need to be embedded throughout the `<body>` and `<head>`. The tiny size of `nmsp` helps to minimize the downsides of loading it in `<head>` of your document.
-
-
-
-## Features ##
-
-  - Static and Instance methods...
-  - UMD...
-  - Tiny...
-  - Browser and Node...
 
 
 
@@ -52,7 +43,7 @@ Create and extend namespace:
     ns.extend( { g: 'g' } );
 
 Result:
-    
+
     {
       a: {
         b: {

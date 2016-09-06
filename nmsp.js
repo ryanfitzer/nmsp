@@ -12,7 +12,6 @@
     }
 }(this, function ( exports ) {
 
-    var exports = {};
     var toString = Object.prototype.toString;
 
     /**
@@ -59,7 +58,8 @@
                 if ( isObject( src[ key ] ) ) {
 
                     dest[ key ] = isObject( dest[ key ] ) ? dest[ key ] : {};
-                    
+                    dest[ key ] = dest[ key ] || {};
+
                     extend( dest[ key ] )( src[ key ] );
 
                 }
@@ -71,7 +71,7 @@
 
             return dest;
         }
-    };
+    }
 
     /**
      * Get the value at a path in a source object. If a `context` object is provided,
@@ -102,7 +102,7 @@
 
             }, src );
         }
-    };
+    }
 
     /**
      * Create a nested object based on the provided path.
@@ -127,7 +127,7 @@
         }, accumulator );
 
         return accumulator;
-    };
+    }
 
     /**
      * Create a plain object that consists of only the enumerable own properties of a source object.
@@ -145,14 +145,14 @@
         return function( src ) {
 
             src = store || src;
-            
+
             // @support: IE9+ does not support Object.assign( {}, src );
             return Object.keys( src ).reduce( function ( accum, key ) {
-                
+
                 accum[ key ] = src[ key ];
-                
+
                 return accum;
-                
+
             }, {} );
         }
     }
