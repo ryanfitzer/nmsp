@@ -12,6 +12,16 @@ In addition, these data sources may need to be handled before your application i
 
 
 
+## Features ##
+  
+  - Creates namespace instances that provide helpful methods for easy management.
+  - Provides static methods for managing non-`nmsp` objects.
+  - Supports [UMD](https://github.com/umdjs/umd) for flexible module loading support.
+  - Tiny. Only 479 bytes, gzipped.
+  - Support IE9+ and NodeJS 4.0.0+.
+
+
+
 ## Install ##
 
     $ npm install nmsp --save
@@ -20,7 +30,7 @@ In addition, these data sources may need to be handled before your application i
 
 ## Usage ##
 
-Browser (supports [UMD](https://github.com/umdjs/umd)):
+Browser (supports UMD):
 
     <script src="node_modules/nmsp/nmsp.js"></script>
 
@@ -217,11 +227,11 @@ Results:
 
 ### `nmsp( [initialValue] )` ###
 
-Create an object with an API that enables easy extension. This function mutates the object passed as `initialValue`.
+Create a namespace object with an API that enables easy extension. This function mutates the object passed as `initialValue`.
 
 Arguments:
 
-  - `[initialValue]` `{String|Object}`: The initial object to assign to the namespace. A path string (ex: `'a.b.c'` ) can be passed to model a new abject.
+  - `[initialValue]` `{String|Object}`: Create a namespace with an existing object. A path string (ex: `'a.b.c'` ) can be passed as the model for the namespace.
 
 Returns:
 
@@ -306,14 +316,14 @@ Result:
 
 ### `nmsp#plain()` ###
 
-Create a plain object that consists of only the enumerable own properties of the instance object.
+Create a plain object that consists of only the enumerable own properties of the instance object, removing the `nmsp` API.
 
 Returns:
 
   - `{Object}`: A plain object with all non-enumerable non-own properties removed.
 
 Example
-   
+
     var ns = {
         foo: 'Foo'
     });
@@ -325,9 +335,9 @@ Example
 Results:
 
     assert.ok( 'foo' in ns );
-    assert.ok( 'bar' in ns );
+    assert.ok( 'nmsp' in ns );
     assert.ok( 'foo' in result );
-    assert.ok( !( 'bar' in result ) );
+    assert.ok( !( 'nmsp' in result ) );
 
 
 

@@ -179,7 +179,7 @@
      *  //     }
      *  // }
      *
-     * @param [initialValue] {Object|String} The initial object to assign to the namespace. A path string (ex: `'a.b.c.d'` ) can be passes as the model a new abject.
+     * @param [initialValue] {Object|String} Create a namespace with an existing object. A path string (ex: `'a.b.c'` ) can be passed as the model for the namespace.
      * @returns `{Object}` An object extended with the `nmsp` API.
      */
     function nmsp( initialValue ) {
