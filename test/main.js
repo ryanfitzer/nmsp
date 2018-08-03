@@ -2,7 +2,7 @@ var assert = require( 'assert' );
 var nmsp = require( '../nmsp' );
 
 describe( 'Static Methods', function () {
-    
+
     it( 'nmsp.extend() should extend destination', function() {
 
         var expected = {
@@ -31,29 +31,51 @@ describe( 'Static Methods', function () {
         assert.deepEqual( dest, expected );
 
     });
-    
+
+    it( 'nmsp.atPath() should accept a path array with dot notation', function () {
+
+        var expected = {
+            a: {
+                b: {
+                    'c.d': {
+                        'd.e': 'foo'
+                    }
+                }
+            }
+        };
+
+        var shouldEqualObject = nmsp.atPath( [ 'a', 'b', 'c.d', 'd.e' ], expected );
+
+        assert.deepEqual( shouldEqualObject, 'foo' );
+
+    });
+
     it( 'nmsp.atPath() should return value at path', function () {
 
         var src = {
-          a: {
-            b: {
-              c: {
-                d: {}
-              }
+            a: {
+                b: {
+                    c: {
+                        d: {}
+                    }
+                }
             }
-          }
         };
 
         var shouldEqualObject = nmsp.atPath( 'a.b.c.d', src );
+        var shouldEqualObjectfromArray = nmsp.atPath( [ 'a', 'b', 'c', 'd' ], src );
 
         assert.ok( shouldEqualObject );
+        assert.ok( shouldEqualObjectfromArray );
 
         var shouldEqualUndefined = nmsp.atPath( 'a.b.c.d.e.f', src );
+        var shouldEqualUndefinedFromArray = nmsp.atPath( [ 'a', 'b', 'c', 'd', 'e', 'f' ], src );
 
         assert.deepEqual( shouldEqualUndefined, undefined );
+        assert.deepEqual( shouldEqualUndefinedFromArray, undefined );
 
     });
-    
+
     it( 'nmsp.fromPath() should return an object', function() {
 
         var expected = {
@@ -67,20 +89,22 @@ describe( 'Static Methods', function () {
         };
 
         var test = nmsp.fromPath( 'a.b.c.d' );
+        var testFromArray = nmsp.fromPath( [ 'a', 'b', 'c', 'd' ] );
 
         assert.deepEqual( test, expected );
+        assert.deepEqual( testFromArray, expected );
 
     });
 
     it( 'nmsp.plain() should return a plain object', function () {
-        
+
         var props = {
             foo: {
                 value: 'Foo',
                 enumerable: true
             }
         };
-        
+
         var src = Object.create({
             bar: 'Bar'
         }, props );
@@ -89,7 +113,7 @@ describe( 'Static Methods', function () {
 
         assert.ok( 'foo' in src );
         assert.ok( 'bar' in src );
-        
+
         assert.ok( 'foo' in test );
         assert.ok( !( 'bar' in test ) );
 
@@ -128,8 +152,6 @@ describe( 'Instance Methods', function () {
 
     it( 'nmsp() should accept a path', function() {
 
-        var pathValue = 'a.b.c.d';
-
         var expected = {
             a: {
                 b: {
@@ -140,9 +162,11 @@ describe( 'Instance Methods', function () {
             }
         };
 
-        var test = nmsp( pathValue );
+        var test = nmsp( 'a.b.c.d' );
+        var testFromArray = nmsp( [ 'a', 'b', 'c', 'd' ] );
 
         assert.deepEqual( test, expected );
+        assert.deepEqual( testFromArray, expected );
 
     });
 
@@ -163,8 +187,10 @@ describe( 'Instance Methods', function () {
         });
 
         var actual = test.atPath( 'a.b.c' );
+        var actualFromArray = test.atPath( [ 'a', 'b', 'c' ] );
 
         assert.deepEqual( actual, expected );
+        assert.deepEqual( actualFromArray, expected );
 
     });
 
@@ -173,7 +199,7 @@ describe( 'Instance Methods', function () {
         var test = nmsp({
             bar: 'Bar'
         }).plain();
-        
+
         assert.ok( 'bar' in test );
         assert.ok( !( 'nmsp' in test ) );
 
@@ -203,8 +229,8 @@ describe( 'Instance Methods', function () {
                 d: 1
             }
         });
-        
-        assert.ok( typeof test2 == 'undefined' );
+
+        assert.ok( typeof test2 === 'undefined' );
         assert.deepEqual( test, expected );
 
     });
@@ -224,8 +250,16 @@ describe( 'Instance Methods', function () {
         };
 
         var test = nmsp();
+        var testFromArray = nmsp();
 
         test.extend({
+            a: 1,
+            b: {
+                c: 1
+            }
+        });
+
+        testFromArray.extend({
             a: 1,
             b: {
                 c: 1
@@ -236,10 +270,15 @@ describe( 'Instance Methods', function () {
             f: 'f'
         });
 
+        testFromArray.extend( [ 'b', 'd', 'e' ], {
+            f: 'f'
+        });
+
         assert.deepEqual( test, expected );
+        assert.deepEqual( testFromArray, expected );
 
     });
-    
+
     it( 'nmsp#extend() should return undefined', function() {
 
         var src = nmsp();
@@ -262,7 +301,7 @@ describe( 'Instance Methods', function () {
         };
 
         var test = nmsp({
-             a: 1
+            a: 1
         });
 
         test.extend({
@@ -289,17 +328,24 @@ describe( 'Instance Methods', function () {
             a: 1
         });
 
+        var testFromArray = nmsp({
+            a: 1
+        });
+
         test.extend( 'a.b', {
             c: 1
         });
 
+        testFromArray.extend( [ 'a', 'b' ], {
+            c: 1
+        });
+
         assert.deepEqual( test, expected );
+        assert.deepEqual( testFromArray, expected );
 
     });
 
     it( 'nmsp() should accept a path and nmsp#extend() should accept a path and an object', function() {
-
-        var pathValue = 'a.b.c';
 
         var expected = {
             a: {
@@ -311,11 +357,14 @@ describe( 'Instance Methods', function () {
             }
         };
 
-        var test = nmsp( pathValue );
+        var test = nmsp( 'a.b.c' );
+        var testFromArray = nmsp( [ 'a', 'b', 'c' ] );
 
         test.extend( 'a.b.c.d', {} );
+        testFromArray.extend( [ 'a', 'b', 'c', 'd' ], {} );
 
         assert.deepEqual( test, expected );
+        assert.deepEqual( testFromArray, expected );
 
     });
 

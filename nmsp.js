@@ -3,10 +3,12 @@
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(factory);
-    } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+    }
+    else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
         // CommonJS
         module.exports = factory();
-    } else {
+    }
+    else {
         // Browser globals
         root.nmsp = factory();
     }
@@ -70,8 +72,28 @@
             });
 
             return dest;
-        }
+        };
     }
+
+    /**
+     * Create an array of elements from a path.
+     *
+     * @example
+     *  var myPath = toPath( 'a.b.c.d' );
+     *  // [ 'a', 'b', 'c', 'd' ]
+     *  var myOtherPath = toPath( [ 'a', 'b', 'c', 'd' ] );
+     *  // [ 'a', 'b', 'c', 'd' ]
+     *
+     * @private
+     *
+     * @param path {String|Array} The path.
+     * @returns {Array} The path's elements.
+     */
+    function toPath( path ) {
+
+        return Array.isArray( path ) ? path : path.split( '.' );
+    }
+
 
     /**
      * Get the value at a path in a source object. If a `context` object is provided,
@@ -96,12 +118,12 @@
 
             src = context || src;
 
-            return path.split( '.' ).reduce( function ( accum, key ) {
+            return toPath( path ).reduce( function ( accum, key ) {
 
                 return accum && accum[ key ];
 
             }, src );
-        }
+        };
     }
 
     /**
@@ -118,7 +140,7 @@
 
         var accumulator = {};
 
-        var test = path.split( '.' ).reduce( function ( accum, key ) {
+        toPath( path ).reduce( function ( accum, key ) {
 
             accum[ key ] = {};
 
@@ -154,7 +176,7 @@
                 return accum;
 
             }, {} );
-        }
+        };
     }
 
     /**
@@ -191,7 +213,7 @@
         if ( isObject( initialValue ) ) {
             store = initialValue;
         }
-        else if ( typeof initialValue === 'string' ) {
+        else if ( initialValue !== undefined ) {
             store = fromPath( initialValue );
         }
 

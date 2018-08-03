@@ -2,7 +2,7 @@
 
 [![nmsp on npm](https://badge.fury.io/js/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://api.travis-ci.org/ryanfitzer/nmsp.svg?branch=master)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) [![Coverage Status](https://coveralls.io/repos/github/ryanfitzer/nmsp/badge.svg?branch=master)](https://coveralls.io/github/ryanfitzer/nmsp?branch=master) [![Code Climate](https://codeclimate.com/github/ryanfitzer/nmsp/badges/gpa.svg)](https://codeclimate.com/github/ryanfitzer/nmsp)
 
-A tiny module (479 bytes gzipped) for creating, managing and extending your namespaces in the browser (IE9+) and NodeJS (4.0.0+).
+A tiny module (486 bytes gzipped) for creating, managing and extending your namespaces in the browser (IE9+) and NodeJS (4.0.0+).
 
 The most valuable use case for `nmsp` is in a browser environment where the data required by your application is provided by various legacy/3rd party sources (via embedded `<script>` tags, asynchronous requests, etc.).
 
@@ -17,7 +17,7 @@ In addition, these data sources may need to be handled before your application i
   - Creates namespace instances that provide helpful methods for easy management.
   - Provides static methods for managing non-`nmsp` objects.
   - Supports [UMD](https://github.com/umdjs/umd) for flexible module loading support.
-  - Tiny. Only 479 bytes, gzipped.
+  - Tiny. Only 486 bytes, gzipped.
   - Support IE9+ and NodeJS 4.0.0+.
 
 
@@ -40,7 +40,7 @@ Node:
 
 Create and extend namespace:
     
-    // Supports a path string or an object
+    // Supports a path (string or array) or an object
     var ns = nmsp( 'a.b.c' );
     
     // Add a `d` property into the `b` member
@@ -74,7 +74,7 @@ Result:
 
 ### `nmsp` ###
 
-Identifies an `nmsp` namespace.
+Identifies object as an `nmsp` namespace.
 
   - Type: `Boolean`
   - Value: `true`
@@ -131,7 +131,7 @@ Get the value at a path in a source object.
 
 Arguments:
 
-  - `path` `{String}` The path to search in the object.
+  - `path` `{String|Array}` The path to search in the object.
   - `src` `{Object}` The object to search.
 
 Returns:
@@ -151,6 +151,10 @@ Example:
     };
 
     var result = nmsp.atPath( 'a.b.c.d', src );
+    
+    // or
+    
+    var result = nmsp.atPath( [ 'a', 'b', 'c', 'd' ], src );
 
 Result:
 
@@ -163,7 +167,7 @@ Create a nested object based on the provided path.
 
 Arguments:
 
-  - `path` `{String}`: The path with which to model the object.
+  - `path` `{String|Array}`: The path with which to model the object.
 
 Returns:
 
@@ -172,6 +176,10 @@ Returns:
 Example:
 
     var result = nmsp.fromPath( 'a.b.c.d' );
+    
+    // or
+    
+    var result = nmsp.fromPath( [ 'a', 'b', 'c', 'd' ] );
 
 Result:
 
@@ -231,7 +239,7 @@ Create a namespace object with an API that enables easy extension. This function
 
 Arguments:
 
-  - `[initialValue]` `{String|Object}`: Create a namespace with an existing object. A path string (ex: `'a.b.c'` ) can be passed as the model for the namespace.
+  - `[initialValue]` `{String|Array|Object}`: Create a namespace with an existing object. A path (ex: `'a.b.c'` or `[ 'a', 'b', 'c' ]` ) can be passed as the model for the namespace.
 
 Returns:
 
@@ -242,6 +250,10 @@ Example:
     var a = nmsp();
     
     var b = nmsp( 'foo.bar.baz' );
+    
+    // or
+    
+    var b = nmsp( [ 'foo', 'bar', 'baz' ] );
     
     var c = {};
     nmsp( c );
@@ -254,7 +266,7 @@ Assign (recursively) the properties of the source object to instance object. Exi
 
 Arguments:
 
-   - `[path]` `{String}`: A path string (ex: `'a.b.c'` ) as the destination to extend within the object.
+   - `[path]` `{String|Array}`: A path string (ex: `'a.b.c'` or `[ 'a', 'b', 'c' ]` ) as the destination to extend within the object.
    - `src` `{Object}`: The object to merge into the destination.
 
 Returns:
@@ -266,6 +278,12 @@ Example:
     var ns = nmsp( { a: {} } );
 
     ns.extend( 'a.b', {
+      c: 'c'
+    });
+    
+    // or
+    
+    ns.extend( [ 'a', 'b' ], {
       c: 'c'
     });
     
@@ -287,7 +305,7 @@ Get the value at a path in the instance object.
 
 Arguments:
 
-  - `path` `{String}` The path to search in the object.
+  - `path` `{String|Array}` The path to search in the object.
 
 Returns:
 
@@ -308,6 +326,10 @@ Example:
     nmsp( ns );
 
     var result = ns.atPath( 'a.b.c.d' );
+    
+    // or
+    
+    var result = ns.atPath( [ 'a', 'b', 'c', 'd' ] );
 
 Result:
 

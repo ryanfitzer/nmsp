@@ -4,7 +4,6 @@
   "description": "Create, manage and extend your namespaces in the browser and NodeJS.",
   "author": "Ryan Fitzer",
   "main": "nmsp.js",
-  "browser": "nmsp.js",
   "scripts": {
     "test": "istanbul cover --report lcovonly ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -28,8 +27,12 @@
   "license": "MIT",
   "devDependencies": {
     "coveralls": "^2.11.12",
-    "mocha": "^2.4.5",
+    "eslint": "^5.2.0",
+    "grunt": "^1.0.3",
+    "grunt-contrib-uglify": "^3.4.0",
     "istanbul": "^0.4.5",
+    "mocha": "^2.4.5",
     "mocha-lcov-reporter": "^1.2.0"
-  }
+  },
+  "dependencies": {}
 }
