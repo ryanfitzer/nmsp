@@ -26,12 +26,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^2.11.12",
+    "coveralls": "^3.0.2",
     "eslint": "^5.2.0",
     "grunt": "^1.0.3",
-    "grunt-contrib-uglify": "^3.4.0",
+    "grunt-contrib-uglify": "^4.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^2.4.5",
+    "mocha": "^5.2.0",
     "mocha-lcov-reporter": "^1.2.0"
   },
   "dependencies": {}
