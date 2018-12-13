@@ -1,6 +1,6 @@
 # nmsp #
 
-[![nmsp on npm](https://badge.fury.io/js/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://api.travis-ci.org/ryanfitzer/nmsp.svg?branch=master)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) [![Coverage Status](https://coveralls.io/repos/github/ryanfitzer/nmsp/badge.svg?branch=master)](https://coveralls.io/github/ryanfitzer/nmsp?branch=master) [![Code Climate](https://codeclimate.com/github/ryanfitzer/nmsp/badges/gpa.svg)](https://codeclimate.com/github/ryanfitzer/nmsp)
+[![nmsp on npm](https://badge.fury.io/js/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://api.travis-ci.org/ryanfitzer/nmsp.svg?branch=master)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) [![Coverage Status](https://coveralls.io/repos/github/ryanfitzer/nmsp/badge.svg?branch=master)](https://coveralls.io/github/ryanfitzer/nmsp?branch=master) [![Code Climate](https://codeclimate.com/github/ryanfitzer/nmsp/badges/gpa.svg)](https://codeclimate.com/github/ryanfitzer/nmsp) [![Greenkeeper badge](https://badges.greenkeeper.io/ryanfitzer/nmsp.svg)](https://greenkeeper.io/)
 
 A tiny module (486 bytes gzipped) for creating, managing and extending your namespaces in the browser (IE9+) and NodeJS (4.0.0+).
 
