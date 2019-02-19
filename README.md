@@ -1,47 +1,84 @@
 # nmsp #
 
-[![nmsp on npm](https://badge.fury.io/js/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://api.travis-ci.org/ryanfitzer/nmsp.svg?branch=master)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) [![Coverage Status](https://coveralls.io/repos/github/ryanfitzer/nmsp/badge.svg?branch=master)](https://coveralls.io/github/ryanfitzer/nmsp?branch=master) [![Code Climate](https://codeclimate.com/github/ryanfitzer/nmsp/badges/gpa.svg)](https://codeclimate.com/github/ryanfitzer/nmsp) [![Greenkeeper badge](https://badges.greenkeeper.io/ryanfitzer/nmsp.svg)](https://greenkeeper.io/)
-
-A tiny module (486 bytes gzipped) for creating, managing and extending your namespaces in the browser (IE9+) and NodeJS (4.0.0+).
+[![NPM version](https://img.shields.io/npm/v/nmsp.svg)](https://www.npmjs.com/package/nmsp) [![Build Status](https://img.shields.io/travis/ryanfitzer/nmsp.svg)](https://travis-ci.org/ryanfitzer/nmsp?branch=master) ![Total downloads](https://img.shields.io/npm/dt/nmsp.svg) [![Maintainability](https://img.shields.io/codeclimate/maintainability/ryanfitzer/nmsp.svg)](https://codeclimate.com/github/ryanfitzer/nmsp/maintainability)
 
 The most valuable use case for `nmsp` is in a browser environment where the data required by your application is provided by various legacy/3rd party sources (via embedded `<script>` tags, asynchronous requests, etc.).
-
-The typical solution has been to store everything in top-level object literal. The object literal approach definitely works, but it can become very fragile due to the potential for naming conflicts and changes/updates to your data during the life of your application. Managing your namespace(s) with `nmsp` significantly reduces this pain.
-
-In addition, these data sources may need to be handled before your application is even loaded (where you may have something like [Lodash](https://lodash.com) available). For example, when your application is loaded via a `<script>` tag at the end of the `<body>`, but various data sources may need to be embedded throughout the `<body>` and `<head>`. The tiny size of `nmsp` helps to minimize the downsides of loading it in `<head>` of your document.
-
-
-
-## Features ##
   
   - Creates namespace instances that provide helpful methods for easy management.
   - Provides static methods for managing non-`nmsp` objects.
   - Supports [UMD](https://github.com/umdjs/umd) for flexible module loading support.
   - Tiny. Only 486 bytes, gzipped.
-  - Support IE9+ and NodeJS 4.0.0+.
+  - Support IE9+ and NodeJS.
+
+The typical solution has been to store everything in top-level object literal. The object literal approach definitely works, but it can become very fragile due to the potential for naming conflicts and changes/updates to your data during the life of your application. Managing your namespace(s) with `nmsp` significantly reduces this pain.
+
+In addition, these data sources may need to be handled before your application is even loaded (where you may have something like [Lodash](https://lodash.com) available). For example, when your application is loaded via a `<script>` tag at the end of the `<body>`, but various data sources may need to be embedded throughout the `<body>` and `<head>`. The tiny size of `nmsp` helps to minimize the downsides of loading it in `<head>` of your document.
+
+------
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Install](#install)
+- [Usage](#usage)
+- [Properties](#properties)
+  - [`nmsp`](#nmsp)
+- [Static Methods](#static-methods)
+  - [`nmsp.extend( dest, src )`](#nmspextend-dest-src-)
+  - [`nmsp.atPath( path, src )`](#nmspatpath-path-src-)
+  - [`nmsp.fromPath( path )`](#nmspfrompath-path-)
+  - [`nmsp.plain( src )`](#nmspplain-src-)
+- [Instance Methods](#instance-methods)
+  - [`nmsp( [initialValue] )`](#nmsp-initialvalue-)
+  - [`nmsp#extend( [path], src )`](#nmspextend-path-src-)
+  - [`nmsp#atPath( path )`](#nmspatpath-path-)
+  - [`nmsp#plain()`](#nmspplain)
+- [License](#license)
 
-## Install ##
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-    $ npm install nmsp --save
+
+## Installation ##
+
+
+### CommonJS ###
+
+
+Install the latest version from [npm](https://www.npmjs.com/package/nmsp):
+
+```bash
+npm install nmsp
+```
+
+Add the `nmsp` package to your app:
+
+```js
+const nmsp = require( 'nmsp' );
+```
+
+### AMD ###
+
+The API is exported as an anonymous module. If you're not familiar with AMD, [RequireJS](https://requirejs.org/docs/start.html) is a great place to start.
+
+
+### Browser Global ###
+
+Download the latest [development](https://unpkg.com/nmsp/dist/nmsp.js) and [production](https://unpkg.com/nmsp/dist/nmsp.min.js) versions from [UNPKG](https://unpkg.com/nmsp/dist/). Once the script is loaded, the `nmsp` function can be accessed globally.
+
+```html
+<!-- When deploying, replace "viewport.js" with "viewport.min.js". -->
+<script src="nmsp.js"></script>
+```
 
 
 
 ## Usage ##
 
-Browser (supports UMD):
-
-    <script src="node_modules/nmsp/nmsp.js"></script>
-
-Node:
-
-    const nmsp = require( 'nmsp' );
 
 Create and extend namespace:
     
     // Supports a path (string or array) or an object
-    var ns = nmsp( 'a.b.c' );
+    const ns = nmsp( 'a.b.c' );
     
     // Add a `d` property into the `b` member
     ns.extend( 'a.b', { d: 'd' } );
@@ -99,14 +136,14 @@ Returns:
 
 Example:
 
-    var dest = {
+    const dest = {
       a: 1,
       b: {
         c: 1
       }
     };
 
-    var src = {
+    const src = {
       b: {
         d: 1
       }
@@ -140,7 +177,7 @@ Returns:
 
 Example:
 
-    var src = {
+    const src = {
       a: {
         b: {
           c: {
@@ -150,11 +187,11 @@ Example:
       }
     };
 
-    var result = nmsp.atPath( 'a.b.c.d', src );
+    const result = nmsp.atPath( 'a.b.c.d', src );
     
     // or
     
-    var result = nmsp.atPath( [ 'a', 'b', 'c', 'd' ], src );
+    const result = nmsp.atPath( [ 'a', 'b', 'c', 'd' ], src );
 
 Result:
 
@@ -175,11 +212,11 @@ Returns:
 
 Example:
 
-    var result = nmsp.fromPath( 'a.b.c.d' );
+    const result = nmsp.fromPath( 'a.b.c.d' );
     
     // or
     
-    var result = nmsp.fromPath( [ 'a', 'b', 'c', 'd' ] );
+    const result = nmsp.fromPath( [ 'a', 'b', 'c', 'd' ] );
 
 Result:
 
@@ -208,18 +245,18 @@ Returns:
 
 Example
  
-    var props = {
+    const props = {
         foo: {
             value: 'Foo',
             enumerable: true
         }
     };
     
-    var src = Object.create({
+    const src = Object.create({
         bar: 'Bar'
     }, props );
 
-    var result = nmsp.plain( src );
+    const result = nmsp.plain( src );
 
 Results:
 
@@ -247,15 +284,15 @@ Returns:
 
 Example:
     
-    var a = nmsp();
+    const a = nmsp();
     
-    var b = nmsp( 'foo.bar.baz' );
+    const b = nmsp( 'foo.bar.baz' );
     
     // or
     
-    var b = nmsp( [ 'foo', 'bar', 'baz' ] );
+    const b = nmsp( [ 'foo', 'bar', 'baz' ] );
     
-    var c = {};
+    const c = {};
     nmsp( c );
 
 
@@ -275,7 +312,7 @@ Returns:
 
 Example:
 
-    var ns = nmsp( { a: {} } );
+    const ns = nmsp( { a: {} } );
 
     ns.extend( 'a.b', {
       c: 'c'
@@ -313,7 +350,7 @@ Returns:
 
 Example:
 
-    var ns = {
+    const ns = {
       a: {
         b: {
           c: {
@@ -325,11 +362,11 @@ Example:
     
     nmsp( ns );
 
-    var result = ns.atPath( 'a.b.c.d' );
+    const result = ns.atPath( 'a.b.c.d' );
     
     // or
     
-    var result = ns.atPath( [ 'a', 'b', 'c', 'd' ] );
+    const result = ns.atPath( [ 'a', 'b', 'c', 'd' ] );
 
 Result:
 
@@ -346,13 +383,13 @@ Returns:
 
 Example
 
-    var ns = {
+    const ns = {
         foo: 'Foo'
     });
     
     nmsp( ns );
 
-    var result = ns.plain();
+    const result = ns.plain();
 
 Results:
 

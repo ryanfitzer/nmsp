@@ -1,5 +1,5 @@
 var assert = require( 'assert' );
-var nmsp = require( '../nmsp' );
+var nmsp = require( '../src/nmsp' );
 
 describe( 'Static Methods', function () {
 

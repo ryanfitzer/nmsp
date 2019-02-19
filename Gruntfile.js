@@ -1,24 +1,34 @@
-module.exports = function( grunt ) {
+module.exports = function ( grunt ) {
 
-    /* Configure */
-    grunt.initConfig({
+    grunt.initConfig( {
 
-        uglify: {
+        copy: {
             dist: {
-                options: {
-                    report: 'gzip', // grunt --verbose
-                    compress: true
-                },
-                files: {
-                    'nmsp.min.js': [ 'nmsp.js' ]
+                src: './src/nmsp.js',
+                dest: './dist/nmsp.js'
+            }
+        },
+        uglify: {
+            options: {
+                report: 'gzip', // requires `grunt --verbose`
+                compress: {
+                    drop_console: true
                 }
+            },
+            dist: {
+                src: './src/nmsp.js',
+                dest: './dist/nmsp.min.js'
             }
         }
-    });
+    } );
+
+    grunt.loadNpmTasks( 'grunt-contrib-copy' );
 
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 
     grunt.registerTask( 'default', [
+        'copy',
         'uglify'
-    ]);
+    ] );
+
 };

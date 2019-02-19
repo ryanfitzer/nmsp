@@ -3,9 +3,15 @@
   "version": "1.1.0",
   "description": "Create, manage and extend your namespaces in the browser and NodeJS.",
   "author": "Ryan Fitzer",
-  "main": "nmsp.js",
+  "license": "MIT",
+  "main": "index.js",
+  "unpkg": "./dist/nmsp.min.js",
   "scripts": {
-    "test": "istanbul cover --report lcovonly ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "build": "npm run toc && rm -rf ./dist && grunt --verbose",
+    "checkpkg": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
+    "prepublishOnly": "npm run build",
+    "test": "istanbul cover --report lcovonly ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "toc": "doctoc README.md --github"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -15,6 +21,12 @@
     "url": "https://github.com/ryanfitzer/nmsp.git"
   },
   "keywords": [
+    "at path",
+    "extend",
+    "extend objects",
+    "from path",
+    "merge",
+    "merge objects",
     "ns",
     "nsjs",
     "namespace",
@@ -22,13 +34,22 @@
     "namespacer",
     "namespacerjs",
     "namespaced",
-    "namespacedjs"
+    "namespacedjs",
+    "pojo",
+    "objects"
   ],
-  "license": "MIT",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ],
   "devDependencies": {
     "coveralls": "^3.0.2",
+    "doctoc": "^1.4.0",
     "eslint": "^5.2.0",
     "grunt": "^1.0.3",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^4.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^6.0.0",
