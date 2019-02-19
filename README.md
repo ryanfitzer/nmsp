@@ -19,7 +19,10 @@ In addition, these data sources may need to be handled before your application i
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Install](#install)
+- [Installation](#installation)
+  - [CommonJS](#commonjs)
+  - [AMD](#amd)
+  - [Browser Global](#browser-global)
 - [Usage](#usage)
 - [Properties](#properties)
   - [`nmsp`](#nmsp)
@@ -66,7 +69,7 @@ The API is exported as an anonymous module. If you're not familiar with AMD, [Re
 Download the latest [development](https://unpkg.com/nmsp/dist/nmsp.js) and [production](https://unpkg.com/nmsp/dist/nmsp.min.js) versions from [UNPKG](https://unpkg.com/nmsp/dist/). Once the script is loaded, the `nmsp` function can be accessed globally.
 
 ```html
-<!-- When deploying, replace "viewport.js" with "viewport.min.js". -->
+<!-- When deploying, replace "nmsp.js" with "nmsp.min.js". -->
 <script src="nmsp.js"></script>
 ```
 
