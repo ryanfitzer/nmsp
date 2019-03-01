@@ -7,8 +7,8 @@ The most valuable use case for `nmsp` is in a browser environment where the data
   - Creates namespace instances that provide helpful methods for easy management.
   - Provides static methods for managing non-`nmsp` objects.
   - Supports [UMD](https://github.com/umdjs/umd) for flexible module loading support.
-  - Tiny. Only 486 bytes, gzipped.
-  - Support IE9+ and NodeJS.
+  - Tiny. Only 513 bytes, gzipped.
+  - Supports all modern browsers, IE, NodeJS and Nashorn.
 
 The typical solution has been to store everything in top-level object literal. The object literal approach definitely works, but it can become very fragile due to the potential for naming conflicts and changes/updates to your data during the life of your application. Managing your namespace(s) with `nmsp` significantly reduces this pain.
 
@@ -279,35 +279,50 @@ Create a namespace object with an API that enables easy extension. This function
 
 Arguments:
 
-  - `[initialValue]` `{String|Array|Object}`: Create a namespace with an existing object. A path (ex: `'a.b.c'` or `[ 'a', 'b', 'c' ]` ) can be passed as the model for the namespace.
+  - `[initialValue]` `{Object|String|Array}`: Create a namespace with an existing object, or use a path (ex: `'a.b.c'` or `[ 'a', 'b', 'c' ]` ) as the model from which to create the object.
 
 Returns:
 
-  - `{Object}`: An object extended with the `nmsp` API.
+  - `{Object}`: A namespace object extended with the `nmsp` API.
 
-Example:
+Example with no `initialValue`:
     
-    const a = nmsp();
+    const ns = nmsp();
+
+Example with an object as the `initialValue`:
+
+    const ns = nmsp({
+      foo: {
+        bar: {
+          baz: {}
+        }
+      }
+    });
+
+Example with a path string as the `initialValue`:
+
+    const ns = nmsp( 'foo.bar.baz' );
     
-    const b = nmsp( 'foo.bar.baz' );
+Example with a path array as the `initialValue`:
     
-    // or
-    
-    const b = nmsp( [ 'foo', 'bar', 'baz' ] );
-    
-    const c = {};
-    nmsp( c );
+    const ns = nmsp( [ 'foo', 'bar', 'baz' ] );
 
 
 
 ### `nmsp#extend( [path], src )` ###
 
-Assign (recursively) the properties of the source object to instance object. Existing properties that resolve to objects will be extended, all other types are overwritten.
+Extend (recursively) the namespace object with a src value. A an optional `path` argument can be passed to extend the namespace object at a nested position.
+
+If the value at the specified `path` resolves to:
+
+  - an array, it is concatenated with the `src` value.
+  - an object, it is recursively assigned with the properties of the `src` object.
+  - a non-array or non-object, the value is overritten with the `src` value.
 
 Arguments:
 
-   - `[path]` `{String|Array}`: A path string (ex: `'a.b.c'` or `[ 'a', 'b', 'c' ]` ) as the destination to extend within the object.
-   - `src` `{Object}`: The object to merge into the destination.
+   - `[path]` `{String|Array}`: The position (ex: `'a.b.c'` or `[ 'a', 'b', 'c' ]` ) to extend in the namespace object.
+   - `src` `{Mixed}`: The value that will extend the namespace object. If no `path` argument is provided, `src` must be an object.
 
 Returns:
 

@@ -168,7 +168,7 @@
 
             src = store || src;
 
-            // @support: IE9+ does not support Object.assign( {}, src );
+            // @support: IE and Nashorn do not not support Object.assign();
             return Object.keys( src ).reduce( function ( accum, key ) {
 
                 accum[ key ] = src[ key ];
@@ -226,16 +226,35 @@
             },
 
             extend: {
-                value: function ( dest, src ) {
+                value: function ( path, src ) {
 
+                    // Extend the store at the top level using
+                    // the path value as src.
                     if ( !src )  {
 
-                        extendStore( dest );
+                        extendStore( path );
                     }
+
+                    // Extend the store at a specific path.
                     else {
 
-                        extendStore( fromPath( dest ) );
-                        extend( atPath( store )( dest ) )( src );
+                        // Get the value at the path.
+                        var pathValue = atPath( store )( path );
+
+                        if ( Array.isArray( pathValue ) ) {
+
+                            // Concatenate the path array with the src value.
+                            extend( pathValue )( pathValue.concat( src ) );
+                        }
+                        else {
+
+                            // Create the required path, if not already present.
+                            extendStore( fromPath( path ) );
+
+                            // Set the path value as context and
+                            // extend it with the src value.
+                            extend( atPath( store )( path ) )( src );
+                        }
                     }
                 }
             },

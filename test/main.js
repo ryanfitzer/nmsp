@@ -279,6 +279,47 @@ describe( 'Instance Methods', function () {
 
     });
 
+    it( 'nmsp#extend() should concatenate values when destination is an array', function() {
+
+        var expected = {
+            a: [ 1, 2, 3 ],
+            b: {
+                c: [ 'a', 'b', 'c' ]
+            },
+            d: [
+                {
+                    e: 1
+                },
+                {
+                    e: 2
+                }
+            ]
+        };
+
+        var test = nmsp({
+            a: [ 1 ],
+            b: {
+                c: [ 'd' ]
+            },
+            d: [
+                {
+                    e: 1
+                }
+            ]
+        });
+
+        test.extend( 'a', [ 2, 3 ] );
+        test.extend( 'b', {
+            c: [ 'a', 'b', 'c' ]
+        } );
+        test.extend( 'd', {
+            e: 2
+        } );
+
+        assert.deepEqual( test, expected );
+
+    });
+
     it( 'nmsp#extend() should return undefined', function() {
 
         var src = nmsp();
