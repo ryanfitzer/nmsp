@@ -5,3 +5,4 @@ node_modules
 npm-debug.log
 .coveralls.yml
 .tm_properties
+package-lock.json
