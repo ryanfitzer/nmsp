@@ -52,7 +52,7 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^5.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^8.0.1",
+    "mocha": "^9.0.2",
     "mocha-lcov-reporter": "^1.2.0"
   },
   "dependencies": {}
