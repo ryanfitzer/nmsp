@@ -47,7 +47,7 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "doctoc": "^2.0.0",
-    "eslint": "^7.0.0",
+    "eslint": "^8.17.0",
     "grunt": "^1.0.3",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^5.0.0",
