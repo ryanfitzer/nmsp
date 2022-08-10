@@ -12,31 +12,32 @@ The most valuable use case for `nmsp` is in a browser environment where the data
 
 The typical solution has been to store everything in top-level object literal. The object literal approach definitely works, but it can become very fragile due to the potential for naming conflicts and changes/updates to your data during the life of your application. Managing your namespace(s) with `nmsp` significantly reduces this pain.
 
-In addition, these data sources may need to be handled before your application is even loaded (where you may have something like [Lodash](https://lodash.com) available). For example, when your application is loaded via a `<script>` tag at the end of the `<body>`, but various data sources may need to be embedded throughout the `<body>` and `<head>`. The tiny size of `nmsp` helps to minimize the downsides of loading it in `<head>` of your document.
+In addition, these data sources may need to be handled before your application's js bundles have been loaded (which means your [Lodash](https://lodash.com) utils aren't available). For example, when your application is loaded via a `<script>` tag at the end of the `<body>`, but various data sources are embedded via inline `<script>` tags throughout the `<body>` and `<head>`. The tiny size of `nmsp` helps to minimize the downsides of loading it in `<head>` of your document.
 
 ------
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Installation](#installation)
-  - [CommonJS](#commonjs)
-  - [AMD](#amd)
-  - [Browser Global](#browser-global)
-- [Usage](#usage)
-- [Properties](#properties)
-  - [`nmsp`](#nmsp)
-- [Static Methods](#static-methods)
-  - [`nmsp.extend( dest, src )`](#nmspextend-dest-src-)
-  - [`nmsp.atPath( path, src )`](#nmspatpath-path-src-)
-  - [`nmsp.fromPath( path )`](#nmspfrompath-path-)
-  - [`nmsp.plain( src )`](#nmspplain-src-)
-- [Instance Methods](#instance-methods)
-  - [`nmsp( [initialValue] )`](#nmsp-initialvalue-)
-  - [`nmsp#extend( [path], src )`](#nmspextend-path-src-)
-  - [`nmsp#atPath( path )`](#nmspatpath-path-)
-  - [`nmsp#plain()`](#nmspplain)
-- [License](#license)
+- [nmsp](#nmsp)
+  - [Installation](#installation)
+    - [CommonJS](#commonjs)
+    - [AMD](#amd)
+    - [Browser Global](#browser-global)
+  - [Usage](#usage)
+  - [Properties](#properties)
+    - [`nmsp`](#nmsp-1)
+  - [Static Methods](#static-methods)
+    - [`nmsp.extend( dest, src )`](#nmspextend-dest-src-)
+    - [`nmsp.atPath( path, src )`](#nmspatpath-path-src-)
+    - [`nmsp.fromPath( path )`](#nmspfrompath-path-)
+    - [`nmsp.plain( src )`](#nmspplain-src-)
+  - [Instance Methods](#instance-methods)
+    - [`nmsp( [initialValue] )`](#nmsp-initialvalue-)
+    - [`nmsp#extend( [path], src )`](#nmspextend-path-src-)
+    - [`nmsp#atPath( path )`](#nmspatpath-path-)
+    - [`nmsp#plain()`](#nmspplain)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -421,4 +422,3 @@ Results:
 ## License ##
 
 Copyright © 2016, [Ryan Fitzer](https://github.com/ryanfitzer). Released under the [MIT license](https://github.com/ryanfitzer/nmsp/blob/master/LICENSE).
-

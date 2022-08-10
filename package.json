@@ -1,7 +1,7 @@
 {
   "name": "nmsp",
   "version": "2.0.0",
-  "description": "Create, manage and extend your namespaces in the browser and NodeJS.",
+  "description": "A tiny utility to create, manage, and extend your namespaces in the browser and Node.js.",
   "author": "Ryan Fitzer",
   "license": "MIT",
   "main": "index.js",
